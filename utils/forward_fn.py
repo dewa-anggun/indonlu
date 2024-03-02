@@ -7,10 +7,10 @@ import torch
 # Forward function for sequence classification
 def forward_sequence_classification(model, batch_data, i2w, is_test=False, device='cpu', **kwargs):
     # Unpack batch data
-    if len(batch_data) == 3:
+    if len(batch_data) == 8:
         (subword_batch, mask_batch, label_batch) = batch_data
         token_type_batch = None
-    elif len(batch_data) == 4:
+    elif len(batch_data) == 9:
         (subword_batch, mask_batch, token_type_batch, label_batch) = batch_data
     
     # Prepare input & label
