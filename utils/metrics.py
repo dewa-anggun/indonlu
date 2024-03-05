@@ -48,8 +48,8 @@ def entailment_metrics_fn(list_hyp, list_label):
 def document_sentiment_metrics_fn(list_hyp, list_label):
     metrics = {}
     metrics["ACC"] = accuracy_score(list_label, list_hyp)
-    metrics["F1"] = f1_score(list_label, list_hyp, average='macro')
-    metrics["REC"] = recall_score(list_label, list_hyp, average='macro')
+    metrics["F1"] = f1_score(list_label, list_hyp, average='macro', zero_division=0)
+    metrics["REC"] = recall_score(list_label, list_hyp, average='macro', zero_division=0)
     metrics["PRE"] = precision_score(list_label, list_hyp, average='macro', zero_division=0)
     return metrics
 
