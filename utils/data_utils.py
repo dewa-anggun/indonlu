@@ -388,14 +388,14 @@ class PosTagDataLoader(DataLoader):
 #####
 class EmotionDetectionDataset(Dataset):
     # Static constant variable
-    LABEL2INDEX = {'sadness': 0, 'anger': 1, 'love': 2, 'fear': 3, 'happy': 4}
-    INDEX2LABEL = {0: 'sadness', 1: 'anger', 2: 'love', 3: 'fear', 4: 'happy'}
-    NUM_LABELS = 5
+    LABEL2INDEX = {'anger': 0, 'anticipation': 1, 'disgust': 2, 'fear': 3, 'joy': 4, 'sadness': 5, 'surprise': 6, 'trust': 7}
+    INDEX2LABEL = {0: 'anger', 1: 'anticipation', 2: 'disgust', 3: 'fear', 4: 'joy', 5: 'sadness', 6: 'surprise', 7: 'trust'}
+    NUM_LABELS = 8
     
     def load_dataset(self, path):
         # Load dataset
         dataset = pd.read_csv(path)
-        dataset['label'] = dataset['label'].apply(lambda sen: self.LABEL2INDEX[sen])
+        dataset['kelas'] = dataset['kelas'].apply(lambda sen: self.LABEL2INDEX[sen])
         return dataset
 
     def __init__(self, dataset_path, tokenizer, no_special_token=False, *args, **kwargs):
@@ -404,9 +404,9 @@ class EmotionDetectionDataset(Dataset):
         self.no_special_token = no_special_token
         
     def __getitem__(self, index):
-        tweet, label = self.data.loc[index,'tweet'], self.data.loc[index,'label']        
-        subwords = self.tokenizer.encode(tweet, add_special_tokens=not self.no_special_token)
-        return np.array(subwords), np.array(label), tweet
+        komentar, kelas = self.data.loc[index,'komentar'], self.data.loc[index,'kelas']        
+        subwords = self.tokenizer.encode(komentar, add_special_tokens=not self.no_special_token)
+        return np.array(subwords), np.array(kelas), tweet
     
     def __len__(self):
         return len(self.data)
