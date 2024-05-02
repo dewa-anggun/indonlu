@@ -406,7 +406,7 @@ class EmotionDetectionDataset(Dataset):
     def __getitem__(self, index):
         komentar, kelas = self.data.loc[index,'komentar'], self.data.loc[index,'kelas']        
         subwords = self.tokenizer.encode(komentar, add_special_tokens=not self.no_special_token)
-        return np.array(subwords), np.array(kelas), tweet
+        return np.array(subwords), np.array(kelas), komentar
     
     def __len__(self):
         return len(self.data)
